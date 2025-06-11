@@ -2,6 +2,7 @@
 
 import numpy as np
 
+import dask.array as da
 import shapely
 from shapely.errors import EmptyPartError
 from shapely.geometry import point
@@ -52,7 +53,7 @@ class MultiPoint(BaseMultipartGeometry):
         elif len(points) == 0:
             return shapely.from_wkt("MULTIPOINT EMPTY")
 
-        if isinstance(points, np.ndarray) and np.issubdtype(points.dtype, np.number):
+        if isinstance(points, (da.Array, np.ndarray)) and np.issubdtype(points.dtype, np.number):
             subs = shapely.points(points)
             if not subs.ndim == 1:
                 raise ValueError("Invalid values passed to MultiPoint constructor")
