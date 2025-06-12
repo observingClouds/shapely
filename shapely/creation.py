@@ -121,7 +121,7 @@ def points(
     if isinstance(handle_nan, str):
         handle_nan = HandleNaN.get_value(handle_nan)
     if indices is None:
-        return lib.points(coords, np.intc(handle_nan), out=out, **kwargs)
+        return lib.points(coords, np.intc(handle_nan), out=out, output_dtypes=[float], **kwargs)
     else:
         return simple_geometries_1d(
             coords, indices, GeometryType.POINT, handle_nan=handle_nan, out=out
